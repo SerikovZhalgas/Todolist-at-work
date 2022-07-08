@@ -1,4 +1,5 @@
 import React from 'react';
+import s from "./Button.module.css"
 
 export type ButtonType = {
     onClickAdd: () => void
@@ -6,9 +7,9 @@ export type ButtonType = {
 
 const Button = (props: ButtonType) => {
     return (
-        <div>
-            <button onClick={props.onClickAdd}>+</button>
-        </div>
+        <span>
+            <button className={s.button} onClick={props.onClickAdd}>+</button>
+        </span>
     );
 }
 

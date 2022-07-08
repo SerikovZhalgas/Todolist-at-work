@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {KeyboardEvent} from 'react'
-import {StudentsType} from "../../App";
+import s from "./Input.module.css"
 
 type InputType = {
     onChangeValue: (e: string) => void
@@ -14,12 +14,12 @@ const Input = (props: InputType) => {
     }
 
     return (
-        <div>
-            <input
+        <span>
+            <input className={s.input}
                 value={props.value}
                 onChange={(e) => onChangeValue(e.currentTarget.value)}
                 onKeyDown={(e)=>props.onClickKeyboard(e)}/>
-        </div>
+        </span>
     );
 }
 

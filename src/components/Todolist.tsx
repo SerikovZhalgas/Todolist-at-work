@@ -2,6 +2,7 @@ import React, {KeyboardEvent, useState} from 'react';
 import {CheckType, StudentsType} from "../App";
 import Input from "./Input/Input";
 import Button from "./Button/Button";
+import s from "./Todolist.module.css"
 
 type TodolistPropsType = {
     checkedButton: (filter: CheckType) => void
@@ -12,29 +13,24 @@ type TodolistPropsType = {
 
 const Todolist = (props: TodolistPropsType) => {
     const [value, setValue] = useState('')
-
     const onClickDeteleHandler = (sID: string) => {
         props.deleteTask(sID)
     }
-    const stackInfo = props.students.map(s =>
-        <li key={s.id}>
-            <span>{s.stack}</span>
-            <button onClick={() => onClickDeteleHandler(s.id)}>x</button>
+    const stackInfo = props.students.map(st =>
+        <li className={s.todolistItem} key={st.id}>
+            <span className={s.todolistItemText}>{st.stack}</span>
+            <button className={s.todolistItemButton} onClick={() => onClickDeteleHandler(st.id)}>x</button>
         </li>)
-
     const OnClickFilterButton = (filter: CheckType) => {
         props.checkedButton(filter)
     }
-
     const onChangeValue = (e: string) => {
         setValue(e)
     }
-
     const onClickAdd = () => {
         props.addTask(value)
         setValue('')
     }
-
     const onClickKeyboard = (e:KeyboardEvent<HTMLInputElement>)=> {
         if(e.key==="Enter" && e.ctrlKey) {
             props.addTask(value)
@@ -42,19 +38,19 @@ const Todolist = (props: TodolistPropsType) => {
         }
     }
     return (
-        <div>
-            <h3>What to learn</h3>
-            <div>
+        <div className={s.todolist}>
+            <h3 className={s.todolistTitle}>What to learn</h3>
+            <div className={s.todolistUnput}>
                 <Input value={value} onChangeValue={onChangeValue} onClickKeyboard={onClickKeyboard}/>
                 <Button onClickAdd={onClickAdd}/>
             </div>
-            <ul>
+            <ul className={s.todoListItems}>
                 {stackInfo}
             </ul>
-            <div>
-                <button onClick={() => OnClickFilterButton("all")}>All</button>
-                <button onClick={() => OnClickFilterButton("active")}>Active</button>
-                <button onClick={() => OnClickFilterButton("completed")}>Completed</button>
+            <div className={s.todolistFilter}>
+                <button className={s.todolistFilterButton} onClick={() => OnClickFilterButton("all")}>All</button>
+                <button className={s.todolistFilterButton} onClick={() => OnClickFilterButton("active")}>Active</button>
+                <button className={s.todolistFilterButton} onClick={() => OnClickFilterButton("completed")}>Completed</button>
             </div>
         </div>
     );
